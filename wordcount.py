@@ -25,29 +25,44 @@ should return a dictionary with words as keys, and their counts as values.
 
 # Your name, plus anyone who helped you with this assignment
 # Give credit where credit is due.
-__author__ = "???"
+__author__ = "John Wilkinson, youtube, Canvas lessons, and the internet at large"
 
 import sys
 
 
 def create_word_dict(filename):
-    """Returns a word/count dict for the given file."""
-    # Your code here
-    return
+    # Doing the reading of the file in the helper function, so that 
+    # the other functions are only reposnsible for sorting
+    word_dict = {}
+    with open(filename, "r") as f:
+        for row in f:
+            words = row.split()
+            for word in words:
+                to_lower = word.lower()
+                if to_lower in word_dict:
+                    word_dict[to_lower] += 1
+                else:
+                    word_dict[to_lower] = 1
+    return word_dict
+
+    
 
 
 def print_words(filename):
-    """Prints one per line '<word> : <count>', sorted
-    by word for the given file.
-    """
-    # Your code here
-    return
+    result = create_word_dict(filename)
+    abc_result = sorted(result.items(), key=lambda x: x[0])
+    for i in abc_result:
+	    print(f'{i[0]} : {i[1]}')
+
 
 
 def print_top(filename):
-    """Prints the top count listing for the given file."""
-    # Your code here
-    return
+    result = create_word_dict(filename)
+    abc_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
+    top_20 = abc_result[:20]
+    for i in top_20:
+        print(f'{i[0]} : {i[1]}')
+    
 
 
 # This basic command line argument parsing code is provided and calls
