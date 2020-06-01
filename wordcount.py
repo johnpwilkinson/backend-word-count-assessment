@@ -38,10 +38,13 @@ def create_word_dict(filename):
         for row in f:
             words = row.split()
             for word in words:
+                # lower case every word
                 to_lower = word.lower()
                 if to_lower in word_dict:
+                    # if word is in dict all ready, then add 1 to its value (count)
                     word_dict[to_lower] += 1
                 else:
+                    # if not, then set that words (key) value to 1
                     word_dict[to_lower] = 1
     return word_dict
 
@@ -49,16 +52,22 @@ def create_word_dict(filename):
 
 
 def print_words(filename):
+    # call prior formula on txt file passed in terminal
     result = create_word_dict(filename)
+    # sort results key value pairs in alphabetical order
     abc_result = sorted(result.items(), key=lambda x: x[0])
     for i in abc_result:
+        # print key : value
 	    print(f'{i[0]} : {i[1]}')
 
 
 
 def print_top(filename):
+    # call prior formula on txt file passed in terminal
     result = create_word_dict(filename)
+    # sort results by descending value of the value in each key/value pair
     abc_result = sorted(result.items(), key=lambda x: x[1], reverse=True)
+    # get top 20 results
     top_20 = abc_result[:20]
     for i in top_20:
         print(f'{i[0]} : {i[1]}')
